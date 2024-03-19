@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. API", "1. API", "{E951A305-4DB8-49C7-9A41-EEB05667464C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{529D7C11-608D-41AF-8A65-7362E6BE4C5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infrastructure", "3. Infrastructure", "{4CA18CAF-9B4C-4947-91F8-E3387F00FB44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Common", "4. Common", "{23AE1DBA-1014-4358-A7F5-3CE6407B7FAF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{3D9D64EF-BFC4-4ADA-BCDD-382BFFB94DDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WShop.Operation.Api", "WShop.Operation.Api\WShop.Operation.Api.csproj", "{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFF27991-CBA1-4B26-90F0-1178CA5E3D63} = {E951A305-4DB8-49C7-9A41-EEB05667464C}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
