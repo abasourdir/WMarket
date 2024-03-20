@@ -1,6 +1,6 @@
 ﻿using FastEndpoints;
 
-namespace WShop.Operation.Api.Endpoints.Test;
+namespace WMarket.Operation.Api.Endpoints.Test;
 
 public class TestEndpoint : Endpoint<TestEndpointRequest, TestEndpointResponse>
 {

@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Common", "4. Common", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Tests", "5. Tests", "{3D9D64EF-BFC4-4ADA-BCDD-382BFFB94DDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WShop.Operation.Api", "WShop.Operation.Api\WShop.Operation.Api.csproj", "{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMarket.Operation.Api", "WMarket.Operation.Api\WMarket.Operation.Api.csproj", "{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
