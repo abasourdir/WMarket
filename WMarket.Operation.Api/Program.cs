@@ -1,30 +1,9 @@
-using FastEndpoints;
-using FastEndpoints.Swagger;
+using WMarket.Operation.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddFastEndpoints();
-builder.Services.SwaggerDocument(o =>
-{
-    o.EnableJWTBearerAuth = false;
-    o.MinEndpointVersion = 1;
-    o.MaxEndpointVersion = 1;
-    
-    o.DocumentSettings = s =>
-    {
-        s.DocumentName = "Products operation API";
-        s.Title = "Products operation API v1";
-        s.Version = "v1";
-    };
-});
+builder.Services.AddApiServices();
 
 var app = builder.Build();
 
-app.UseFastEndpoints(c =>
-{
-    c.Versioning.PrependToRoute = true;
-    c.Endpoints.RoutePrefix = "api";
-});
-app.UseSwaggerGen();
-
+app.UseApiServices();
 app.Run();
