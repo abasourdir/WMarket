@@ -45,4 +45,14 @@ public class ProductRepository : IProductRepository
 
         return result;
     }
+
+    public async Task<long> DeleteAsync(DeleteProductRepositoryRequest request)
+    {
+        var connection = await _connectionFactory.OpenAsync();
+
+        var result = await connection.ExecuteScalarAsync<long>("[dbo].[Products_Delete]", request,
+            commandType: CommandType.StoredProcedure);
+
+        return result;
+    }
 }

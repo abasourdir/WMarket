@@ -10,4 +10,6 @@ public interface IProductRepository : IRepository
     Task<List<GetPagedProductsRepositoryResponse>> GetPagedAsync(GetPagedProductsRepositoryRequest request);
 
     Task<UpdateProductRepositoryResponse?> UpdateAsync(UpdateProductRepositoryRequest request);
+    
+    Task<long> DeleteAsync(DeleteProductRepositoryRequest request);
 }

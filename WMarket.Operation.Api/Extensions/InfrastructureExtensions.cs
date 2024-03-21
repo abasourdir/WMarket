@@ -7,6 +7,8 @@ using WMarket.Data.Repositories.Product.Implementation;
 using WMarket.Data.Repositories.Product.Interfaces;
 using WMarket.Modules.UseCases.Product.Add.Implementation;
 using WMarket.Modules.UseCases.Product.Add.Interfaces;
+using WMarket.Modules.UseCases.Product.Delete.Implementation;
+using WMarket.Modules.UseCases.Product.Delete.Interfaces;
 using WMarket.Modules.UseCases.Product.Get.Implementation;
 using WMarket.Modules.UseCases.Product.Get.Interfaces;
 using WMarket.Modules.UseCases.Product.Update.Implementation;
@@ -35,6 +37,7 @@ public static class InfrastructureExtensions
         services.AddTransient<IAddProductModule, AddProductModule>();
         services.AddTransient<IGetProductsModule, GetProductsModule>();
         services.AddTransient<IUpdateProductModule, UpdateProductModule>();
+        services.AddTransient<IDeleteProductModule, DeleteProductModule>();
 
         return services;
     }

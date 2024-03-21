@@ -45,9 +45,23 @@ AS
             [Description] = @Description,
             [Price] = @Price
             OUTPUT INSERTED.[Id],
-            INSERTED.[Name],
-            INSERTED.[Description],
-            INSERTED.[Price]
+                   INSERTED.[Name],
+                   INSERTED.[Description],
+                   INSERTED.[Price]
         WHERE [Id] = @Id
+    END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[Products_Delete]
+	@Id BIGINT
+AS
+    BEGIN
+        SET NOCOUNT, XACT_ABORT ON;
+        SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+        
+        DELETE
+        FROM [dbo].[Products]
+        OUTPUT DELETED.[Id]
+        WHERE Id = @Id
     END
 GO
