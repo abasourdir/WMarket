@@ -1,5 +1,3 @@
 ﻿namespace WMarket.Data.Repositories;
 
-public interface IRepository
-{
-}
+public interface IRepository;

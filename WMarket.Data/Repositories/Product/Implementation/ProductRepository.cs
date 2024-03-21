@@ -35,4 +35,14 @@ public class ProductRepository : IProductRepository
 
         return result.ToList();
     }
+
+    public async Task<UpdateProductRepositoryResponse?> UpdateAsync(UpdateProductRepositoryRequest request)
+    {
+        var connection = await _connectionFactory.OpenAsync();
+
+        var result = await connection.QueryFirstOrDefaultAsync<UpdateProductRepositoryResponse>("[dbo].[Products_Update]", request,
+            commandType: CommandType.StoredProcedure);
+
+        return result;
+    }
 }

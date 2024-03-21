@@ -2,9 +2,7 @@
 
 namespace WMarket.Modules.UseCases.Product.Get.Models.Response;
 
-public class GetProductsModuleResponse : ModuleGenericResponse<List<GetProductsModuleResponseData>>
-{
-}
+public class GetProductsModuleResponse : ModuleGenericResponse<List<GetProductsModuleResponseData>>;
 
 public class GetProductsModuleResponseData
 {

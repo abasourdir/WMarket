@@ -23,7 +23,7 @@ public class GetProductsEndpoint : Endpoint<GetProductsEndpointRequest, GetProdu
         Get("/product/list");
         Version(1);
         AllowAnonymous();
-        Summary(s => s.Summary = "Получение списка продуктов");
+        Summary(s => s.Summary = "Get list of products");
     }
 
     public override async Task HandleAsync(GetProductsEndpointRequest req, CancellationToken ct)
