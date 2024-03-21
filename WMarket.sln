@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMarket.Common.Models", "WM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMarket.Common", "WMarket.Common\WMarket.Common.csproj", "{010A5369-52D8-4DEA-A060-40969562D435}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMarket.Common.Api", "WMarket.Common.Api\WMarket.Common.Api.csproj", "{9400BA23-0DD4-495C-941C-09643E12FE4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,7 @@ Global
 		{0C678488-295D-431D-87B8-F3EFC3D18240} = {4CA18CAF-9B4C-4947-91F8-E3387F00FB44}
 		{FEC5B887-2FD6-4CAE-9AB1-8916AA5D9C19} = {23AE1DBA-1014-4358-A7F5-3CE6407B7FAF}
 		{010A5369-52D8-4DEA-A060-40969562D435} = {23AE1DBA-1014-4358-A7F5-3CE6407B7FAF}
+		{9400BA23-0DD4-495C-941C-09643E12FE4D} = {23AE1DBA-1014-4358-A7F5-3CE6407B7FAF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AFF27991-CBA1-4B26-90F0-1178CA5E3D63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -53,5 +56,9 @@ Global
 		{010A5369-52D8-4DEA-A060-40969562D435}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{010A5369-52D8-4DEA-A060-40969562D435}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{010A5369-52D8-4DEA-A060-40969562D435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9400BA23-0DD4-495C-941C-09643E12FE4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9400BA23-0DD4-495C-941C-09643E12FE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9400BA23-0DD4-495C-941C-09643E12FE4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9400BA23-0DD4-495C-941C-09643E12FE4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

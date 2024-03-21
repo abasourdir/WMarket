@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\WMarket.Common.Api\WMarket.Common.Api.csproj" />
       <ProjectReference Include="..\WMarket.Modules\WMarket.Modules.csproj" />
     </ItemGroup>
 
