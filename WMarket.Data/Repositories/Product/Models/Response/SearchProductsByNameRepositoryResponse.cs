@@ -1,7 +1,9 @@
 ﻿namespace WMarket.Data.Repositories.Product.Models.Response;
 
-public class GetPagedProductsRepositoryResponse
+public class SearchProductsByNameRepositoryResponse
 {
+    public long Id { get; set; }
+    
     public string Name { get; set; }
 
     public string Description { get; set; }
