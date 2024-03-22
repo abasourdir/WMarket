@@ -6,6 +6,7 @@ namespace WMarket.Common.Api.Models.Response;
 public class ErrorResponse
 {
     [JsonPropertyName("errorCode")]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ErrorCode ErrorCode { get; set; }
 
     [JsonPropertyName("message")]

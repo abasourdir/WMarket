@@ -68,3 +68,20 @@ AS
         WHERE Id = @Id
     END
 GO
+
+CREATE OR ALTER PROCEDURE [dbo].[Products_GetById]
+	@Id BIGINT
+AS
+    BEGIN
+        SET NOCOUNT, XACT_ABORT ON;
+        SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+        
+        SELECT TOP (1)
+            p.[Id],
+                p.[Name],
+               p.[Description],
+               p.[Price]
+        FROM [dbo].[Products] AS p
+        WHERE p.[Id] = @Id
+    END
+GO

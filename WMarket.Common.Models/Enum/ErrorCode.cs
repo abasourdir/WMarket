@@ -3,5 +3,8 @@
 public enum ErrorCode
 {
     SystemError,
-    GenericError
+    GenericError,
+    
+    OrderNotFound,
+    OrderAlreadyCancelled
 }

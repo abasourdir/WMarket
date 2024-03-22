@@ -12,4 +12,6 @@ public interface IProductRepository : IRepository
     Task<UpdateProductRepositoryResponse?> UpdateAsync(UpdateProductRepositoryRequest request);
     
     Task<long> DeleteAsync(DeleteProductRepositoryRequest request);
+
+    Task<ProductByIdRepositoryResponse?> GetByIdAsync(ProductByIdRepositoryRequest request);
 }

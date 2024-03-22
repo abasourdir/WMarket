@@ -55,4 +55,14 @@ public class ProductRepository : IProductRepository
 
         return result;
     }
+
+    public async Task<ProductByIdRepositoryResponse?> GetByIdAsync(ProductByIdRepositoryRequest request)
+    {
+        var connection = await _connectionFactory.OpenAsync();
+
+        var result = await connection.QueryFirstOrDefaultAsync<ProductByIdRepositoryResponse>("[dbo].[Products_GetById]", request,
+            commandType: CommandType.StoredProcedure);
+
+        return result;
+    }
 }

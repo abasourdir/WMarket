@@ -15,4 +15,8 @@
       <ProjectReference Include="..\WMarket.Common.Models\WMarket.Common.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Repositories\OrderItems\Models\Response\" />
+    </ItemGroup>
+
 </Project>
