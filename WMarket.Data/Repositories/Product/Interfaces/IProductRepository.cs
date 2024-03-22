@@ -7,7 +7,7 @@ public interface IProductRepository : IRepository
 {
     Task<long> InsertAsync(InsertProductRepositoryRequest request);
 
-    Task<List<GetPagedProductsRepositoryResponse>> GetPagedAsync(GetPagedProductsRepositoryRequest request);
+    Task<List<SearchProductsByNameRepositoryResponse>> SearchByNameAsync(SearchProductsByNameRepositoryRequest request);
 
     Task<UpdateProductRepositoryResponse?> UpdateAsync(UpdateProductRepositoryRequest request);
     

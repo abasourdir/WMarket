@@ -1,12 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 using WMarket.Common.Api.Models.Response;
 
-namespace WMarket.Operation.Api.Endpoints.Product.Get;
+namespace WMarket.Operation.Api.Endpoints.Product.SearchByName;
 
-public class GetProductsEndpointResponse : BaseResponse<List<GetProductsEndpointResponseData>>;
+public class SearchProductsByNameEndpointResponse : BaseResponse<List<SearchProductsEndpointResponseData>>;
 
-public class GetProductsEndpointResponseData 
+public class SearchProductsEndpointResponseData 
 {
+    [JsonPropertyName("id")]
+    public long Id { get; set; }
+    
     [JsonPropertyName("name")]
     public string Name { get; set; }
 

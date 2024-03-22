@@ -26,11 +26,11 @@ public class ProductRepository : IProductRepository
         return result;
     }
 
-    public async Task<List<GetPagedProductsRepositoryResponse>> GetPagedAsync(GetPagedProductsRepositoryRequest request)
+    public async Task<List<SearchProductsByNameRepositoryResponse>> SearchByNameAsync(SearchProductsByNameRepositoryRequest request)
     {
         var connection = await _connectionFactory.OpenAsync();
 
-        var result = await connection.QueryAsync<GetPagedProductsRepositoryResponse>("[dbo].[Products_GetPaged]", request,
+        var result = await connection.QueryAsync<SearchProductsByNameRepositoryResponse>("[dbo].[Products_SearchByName]", request,
             commandType: CommandType.StoredProcedure);
 
         return result.ToList();

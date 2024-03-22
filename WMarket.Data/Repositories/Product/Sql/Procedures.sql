@@ -13,7 +13,8 @@ AS
     END
 GO
 
-CREATE OR ALTER PROCEDURE [dbo].[Products_GetPaged]
+CREATE OR ALTER PROCEDURE [dbo].[Products_SearchByName]
+    @Name NVARCHAR (256),                      
     @Limit INT,
     @Offset INT
 AS
@@ -21,10 +22,12 @@ AS
         SET NOCOUNT, XACT_ABORT ON;
         SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
         
-        SELECT p.[Name],
+        SELECT p.[Id],
+               p.[Name],
                p.[Description],
                p.[Price]
         FROM [dbo].[Products] AS p
+        WHERE @Name IS NULL OR p.[Name] LIKE '%' + @Name + '%'
         ORDER BY p.[Id]
         OFFSET @Offset ROWS FETCH NEXT @Limit ROWS ONLY
     END
