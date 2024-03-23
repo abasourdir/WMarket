@@ -1,4 +1,4 @@
-﻿namespace WMarket.Common.Models.Constants;
+﻿namespace WMarket.Common.Api.Constants;
 
 public static class Headers
 {

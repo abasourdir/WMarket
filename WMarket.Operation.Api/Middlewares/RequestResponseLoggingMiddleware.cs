@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using WMarket.Common.Models.Constants;
-using WMarket.Common.Models.Extensions;
+using WMarket.Common.Api.Constants;
+using WMarket.Common.Extensions;
 
 namespace WMarket.Operation.Api.Middlewares;
 

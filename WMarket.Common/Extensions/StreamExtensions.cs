@@ -1,4 +1,4 @@
-﻿namespace WMarket.Common.Models.Extensions;
+﻿namespace WMarket.Common.Extensions;
 
 public static class StreamExtensions
 {
