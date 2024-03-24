@@ -17,63 +17,72 @@ public class SqlConnectionDecorator : ISqlConnectionDecorator
     
     public async Task<IEnumerable<TResponse>> QueryAsync<TResponse>(string procedureName, object? request = null)
     {
-        var result = await DatabaseRetryPolicy.Value.ExecuteAndCaptureAsync(async () =>
+        var result = await DatabaseRetryPolicy.Value.ExecuteAsync(async () =>
         {
             var connection = await _sqlConnectionFactory.OpenAsync();
 
             var result =
-                await connection.QueryAsync<TResponse>(procedureName, request,
+                await connection.QueryAsync<TResponse>(
+                    procedureName,
+                    request,
+                    commandTimeout: 3,
                     commandType: CommandType.StoredProcedure);
 
             return result;
         });
 
-        return result.Result;
+        return result;
     }
 
     public async Task<TResponse?> QueryFirstOrDefaultAsync<TResponse>(string procedureName, object? request = null)
     {
-        var result = await DatabaseRetryPolicy.Value.ExecuteAndCaptureAsync(async () =>
+        var result = await DatabaseRetryPolicy.Value.ExecuteAsync(async () =>
         {
             var connection = await _sqlConnectionFactory.OpenAsync();
 
             var result =
-                await connection.QueryFirstOrDefaultAsync<TResponse>(procedureName, request,
+                await connection.QueryFirstOrDefaultAsync<TResponse>(
+                    procedureName,
+                    request,
+                    commandTimeout: 3,
                     commandType: CommandType.StoredProcedure);
 
             return result;
         });
 
-        return result.Result;
+        return result;
     }
 
     public async Task ExecuteAsync(string procedureName, object? request = null)
     {
-        await DatabaseRetryPolicy.Value.ExecuteAndCaptureAsync(async () =>
+        await DatabaseRetryPolicy.Value.ExecuteAsync(async () =>
         {
             var connection = await _sqlConnectionFactory.OpenAsync();
 
-            var result =
-                await connection.ExecuteAsync(procedureName, request,
-                    commandType: CommandType.StoredProcedure);
-
-            return result;
+            await connection.ExecuteAsync(
+                procedureName,
+                request,
+                commandTimeout: 3,
+                commandType: CommandType.StoredProcedure);
         });
     }
 
     public async Task<TResponse?> ExecuteScalarAsync<TResponse>(string procedureName, object? request = null)
     {
-        var result = await DatabaseRetryPolicy.Value.ExecuteAndCaptureAsync(async () =>
+        var result = await DatabaseRetryPolicy.Value.ExecuteAsync(async () =>
         {
             var connection = await _sqlConnectionFactory.OpenAsync();
 
             var result =
-                await connection.ExecuteScalarAsync<TResponse>(procedureName, request,
+                await connection.ExecuteScalarAsync<TResponse>(
+                    procedureName,
+                    request,
+                    commandTimeout: 3,
                     commandType: CommandType.StoredProcedure);
 
             return result;
         });
 
-        return result.Result;
+        return result;
     }
 }

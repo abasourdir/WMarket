@@ -9,5 +9,5 @@ public static class DatabaseRetryPolicy
     public static AsyncRetryPolicy Value { get; } =
         Policy.Handle<SqlException>()
             .Or<TimeoutException>()
-            .WaitAndRetryAsync(5, i => TimeSpan.FromSeconds(i * 2));
+            .WaitAndRetryAsync(2, _ => TimeSpan.FromSeconds(1));
 }
