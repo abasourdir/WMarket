@@ -1,6 +1,4 @@
-﻿using System.Data;
-using Dapper;
-using WMarket.Data.ConnectionFactories;
+﻿using WMarket.Data.ConnectionDecorators.Sql.Interfaces;
 using WMarket.Data.Repositories.OrderItems.Interfaces;
 using WMarket.Data.Repositories.OrderItems.Models.Request;
 
@@ -8,17 +6,13 @@ namespace WMarket.Data.Repositories.OrderItems.Implementation;
 
 public class OrderItemRepository : IOrderItemRepository
 {
-    private readonly SqlConnectionFactory _connectionFactory;
+    private readonly ISqlConnectionDecorator _connectionDecorator;
 
-    public OrderItemRepository(SqlConnectionFactory connectionFactory)
+    public OrderItemRepository(ISqlConnectionDecorator connectionDecorator)
     {
-        _connectionFactory = connectionFactory;
+        _connectionDecorator = connectionDecorator;
     }
     
-    public async Task InsertAsync(InsertOrderItemRepositoryRequest request)
-    {
-        var connection = await _connectionFactory.OpenAsync();
-
-        await connection.ExecuteAsync("[dbo].[OrderItems_Insert]", request, commandType: CommandType.StoredProcedure);
-    }
+    public Task InsertAsync(InsertOrderItemRepositoryRequest request)
+        => _connectionDecorator.ExecuteAsync("[dbo].[OrderItems_Insert]", request);
 }

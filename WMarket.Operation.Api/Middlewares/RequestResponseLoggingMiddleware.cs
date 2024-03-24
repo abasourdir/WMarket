@@ -1,19 +1,24 @@
 ﻿using System.Diagnostics;
+using Microsoft.Extensions.Options;
 using WMarket.Common.Api.Constants;
 using WMarket.Common.Extensions;
+using WMarket.Common.Models.IOptions;
 
 namespace WMarket.Operation.Api.Middlewares;
 
 public class RequestResponseLoggingMiddleware
 {
     private readonly ILogger<RequestResponseLoggingMiddleware> _logger;
+    private readonly EndpointLoggingOptions _endpointLoggingOptions;
     private readonly RequestDelegate _next;
 
     public RequestResponseLoggingMiddleware(
         ILogger<RequestResponseLoggingMiddleware> logger,
+        IOptions<EndpointLoggingOptions> endpointLoggingOptions,
         RequestDelegate next)
     {
         _logger = logger;
+        _endpointLoggingOptions = endpointLoggingOptions.Value;
         _next = next;
     }
     
@@ -25,7 +30,13 @@ public class RequestResponseLoggingMiddleware
             !string.IsNullOrWhiteSpace(requestId) && Guid.TryParse(requestId, out var correlationId)
                 ? correlationId == Guid.Empty ? Guid.NewGuid() : correlationId
                 : Guid.NewGuid();
-
+        
+        if (_endpointLoggingOptions.Any(a => a.PathRegex.IsMatch(context.Request.Path.Value ?? string.Empty) && !a.Enabled))
+        {
+            await _next(context);
+            return;
+        }
+        
         var path = $"{context.Request.Path.Value}{context.Request.QueryString}";
 
         await LogRequestAsync(context.Request, path);

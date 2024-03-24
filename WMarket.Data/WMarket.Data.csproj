@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WMarket.Common.Models\WMarket.Common.Models.csproj" />
+      <ProjectReference Include="..\WMarket.Polly\WMarket.Polly.csproj" />
     </ItemGroup>
 
     <ItemGroup>

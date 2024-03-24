@@ -11,7 +11,6 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
-
 app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

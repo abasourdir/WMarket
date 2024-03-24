@@ -1,4 +1,10 @@
 ﻿{
+  "EndpointLoggingOptions": [
+    {
+      "Path": "^(/swagger)",
+      "Enabled": false
+    }
+  ],
   "Serilog": {
     "MinimumLevel": {
       "Default": "Information",

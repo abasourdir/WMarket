@@ -2,7 +2,7 @@
 using Serilog.Core;
 using Serilog.Events;
 
-namespace WMarket.Common.Api.Logging;
+namespace WMarket.Common.Api.Logging.Enrichers;
 
 public class ActivityIdEnricher : ILogEventEnricher
 {

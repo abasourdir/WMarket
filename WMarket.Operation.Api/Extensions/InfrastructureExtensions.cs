@@ -2,7 +2,11 @@
 using Mapster;
 using MapsterMapper;
 using WMarket.Common.Models.IOptions;
+using WMarket.Data.ConnectionDecorators.Sql.Implementation;
+using WMarket.Data.ConnectionDecorators.Sql.Interfaces;
 using WMarket.Data.ConnectionFactories;
+using WMarket.Data.ConnectionFactories.Sql.Implementation;
+using WMarket.Data.ConnectionFactories.Sql.Interfaces;
 using WMarket.Data.Repositories.Order.Implementation;
 using WMarket.Data.Repositories.Order.Interfaces;
 using WMarket.Data.Repositories.OrderItems.Implementation;
@@ -31,6 +35,7 @@ public static class InfrastructureExtensions
         IConfiguration configuration)
     {
         services.Configure<ConnectionStrings>(configuration.GetSection(nameof(ConnectionStrings)));
+        services.Configure<EndpointLoggingOptions>(configuration.GetSection(nameof(EndpointLoggingOptions)));
 
         var config = new TypeAdapterConfig();
         config.Scan(Assembly.GetExecutingAssembly());
@@ -38,7 +43,8 @@ public static class InfrastructureExtensions
         services.AddSingleton(config);
         services.AddScoped<IMapper, ServiceMapper>();
         
-        services.AddSingleton<SqlConnectionFactory>();
+        services.AddSingleton<ISqlConnectionFactory, SqlConnectionFactory>();
+        services.AddSingleton<ISqlConnectionDecorator, SqlConnectionDecorator>();
 
         services.AddTransient<IProductRepository, ProductRepository>();
         services.AddTransient<IOrderRepository, OrderRepository>();

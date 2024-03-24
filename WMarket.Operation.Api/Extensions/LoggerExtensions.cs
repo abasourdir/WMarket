@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using WMarket.Common.Api.Logging;
+using WMarket.Common.Api.Logging.Enrichers;
 
 namespace WMarket.Operation.Api.Extensions;
 
