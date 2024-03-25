@@ -20,10 +20,6 @@ public class OrderRepository : IOrderRepository
     public Task SetStatusAsync(SetOrderStatusRepositoryRequest request)
         => _connectionDecorator.ExecuteAsync("[dbo].[Orders_SetStatus]", request);
 
-    public async Task<GetOrderByIdRepositoryResponse?> GetByIdAsync(GetOrderByIdRepositoryRequest request)
-    {
-        var result = await _connectionDecorator.QueryFirstOrDefaultAsync<GetOrderByIdRepositoryResponse>("[dbo].[Orders_GetById]", request);
-
-        return result;
-    }
+    public Task<GetOrderByIdRepositoryResponse?> GetByIdAsync(GetOrderByIdRepositoryRequest request)
+        => _connectionDecorator.QueryFirstOrDefaultAsync<GetOrderByIdRepositoryResponse>("[dbo].[Orders_GetById]", request);
 }

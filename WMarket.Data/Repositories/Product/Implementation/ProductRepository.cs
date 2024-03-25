@@ -1,4 +1,5 @@
-﻿using WMarket.Data.ConnectionDecorators.Sql.Interfaces;
+﻿using System.Data;
+using WMarket.Data.ConnectionDecorators.Sql.Interfaces;
 using WMarket.Data.Repositories.Product.Interfaces;
 using WMarket.Data.Repositories.Product.Models.Request;
 using WMarket.Data.Repositories.Product.Models.Response;
@@ -14,38 +15,36 @@ public class ProductRepository : IProductRepository
         _connectionDecorator = connectionDecorator;
     }
     
-    public async Task<long> InsertAsync(InsertProductRepositoryRequest request)
+    public Task<long> InsertAsync(InsertProductRepositoryRequest request)
+        => _connectionDecorator.ExecuteScalarAsync<long>("[dbo].[Products_Insert]", request);
+
+    public Task<IEnumerable<SearchProductsByNameRepositoryResponse>> SearchByNameAsync(SearchProductsByNameRepositoryRequest request)
+        => _connectionDecorator.QueryAsync<SearchProductsByNameRepositoryResponse>("[dbo].[Products_SearchByName]", request);
+
+    public Task<UpdateProductRepositoryResponse> UpdateAsync(UpdateProductRepositoryRequest request)
+        => _connectionDecorator.QueryFirstAsync<UpdateProductRepositoryResponse>("[dbo].[Products_Update]", request);
+
+    public Task<long> DeleteAsync(DeleteProductRepositoryRequest request)
+        => _connectionDecorator.ExecuteScalarAsync<long>("[dbo].[Products_Delete]", request);
+
+    public Task<ProductByIdRepositoryResponse?> GetByIdAsync(ProductByIdRepositoryRequest request)
+        => _connectionDecorator.QueryFirstOrDefaultAsync<ProductByIdRepositoryResponse>("[dbo].[Products_GetById]", request);
+
+    public Task<IEnumerable<ProductByIdsRepositoryResponse>> GetByIdsAsync(ProductByIdsRepositoryRequest request)
     {
-        var result = await _connectionDecorator.ExecuteScalarAsync<long>("[dbo].[Products_Insert]", request);
+        var idsDt = new DataTable();
+        idsDt.Columns.Add("Value", typeof(long));
 
-        return result;
-    }
+        foreach (var id in request.Ids)
+        {
+            var row = idsDt.NewRow();
+            row["Value"] = id;
+            idsDt.Rows.Add(row);
+        }
 
-    public async Task<List<SearchProductsByNameRepositoryResponse>> SearchByNameAsync(SearchProductsByNameRepositoryRequest request)
-    {
-        var result = await _connectionDecorator.QueryAsync<SearchProductsByNameRepositoryResponse>("[dbo].[Products_SearchByName]", request);
-
-        return result.ToList();
-    }
-
-    public async Task<UpdateProductRepositoryResponse?> UpdateAsync(UpdateProductRepositoryRequest request)
-    {
-        var result = await _connectionDecorator.QueryFirstOrDefaultAsync<UpdateProductRepositoryResponse>("[dbo].[Products_Update]", request);
-
-        return result;
-    }
-
-    public async Task<long> DeleteAsync(DeleteProductRepositoryRequest request)
-    {
-        var result = await _connectionDecorator.ExecuteScalarAsync<long>("[dbo].[Products_Delete]", request);
-
-        return result;
-    }
-
-    public async Task<ProductByIdRepositoryResponse?> GetByIdAsync(ProductByIdRepositoryRequest request)
-    {
-        var result = await _connectionDecorator.QueryFirstOrDefaultAsync<ProductByIdRepositoryResponse>("[dbo].[Products_GetById]", request);
-
-        return result;
+        return _connectionDecorator.QueryAsync<ProductByIdsRepositoryResponse>("[dbo].[Products_GetByIds]", new
+        {
+            Ids = idsDt
+        });
     }
 }

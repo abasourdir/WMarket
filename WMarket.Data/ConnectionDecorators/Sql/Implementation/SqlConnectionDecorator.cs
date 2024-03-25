@@ -53,6 +53,25 @@ public class SqlConnectionDecorator : ISqlConnectionDecorator
         return result;
     }
 
+    public async Task<TResponse> QueryFirstAsync<TResponse>(string procedureName, object? request = null)
+    {
+        var result = await DatabaseRetryPolicy.Value.ExecuteAsync(async () =>
+        {
+            var connection = await _sqlConnectionFactory.OpenAsync();
+
+            var result =
+                await connection.QueryFirstAsync<TResponse>(
+                    procedureName,
+                    request,
+                    commandTimeout: 3,
+                    commandType: CommandType.StoredProcedure);
+
+            return result;
+        });
+
+        return result;
+    }
+
     public async Task ExecuteAsync(string procedureName, object? request = null)
     {
         await DatabaseRetryPolicy.Value.ExecuteAsync(async () =>

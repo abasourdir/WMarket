@@ -5,6 +5,8 @@ public enum ErrorCode
     SystemError,
     GenericError,
     
+    ProductNotFound,
+    
     OrderNotFound,
     OrderAlreadyCancelled
 }

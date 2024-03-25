@@ -35,22 +35,22 @@ GO
 
 CREATE OR ALTER PROCEDURE [dbo].[Products_Update]
     @Id BIGINT,
-	@Name NVARCHAR (256),
-    @Description NVARCHAR (MAX),
-    @Price DECIMAL (8, 3)
+	@Name NVARCHAR (256) = NULL,
+    @Description NVARCHAR (MAX) = NULL,
+    @Price DECIMAL (8, 3) = NULL
 AS
     BEGIN
         SET NOCOUNT, XACT_ABORT ON;
         SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
         
         UPDATE [dbo].[Products]
-        SET [Name] = @Name,
-            [Description] = @Description,
-            [Price] = @Price
-            OUTPUT INSERTED.[Id],
-                   INSERTED.[Name],
-                   INSERTED.[Description],
-                   INSERTED.[Price]
+        SET [Name] = COALESCE(@Name, @Name, [Name]),
+            [Description] = COALESCE(@Description, @Description, [Description]),
+            [Price] = COALESCE(@Price, @Price, [Price])
+        OUTPUT INSERTED.[Id],
+               INSERTED.[Name],
+               INSERTED.[Description],
+               INSERTED.[Price]
         WHERE [Id] = @Id
     END
 GO
@@ -83,5 +83,22 @@ AS
                p.[Price]
         FROM [dbo].[Products] AS p
         WHERE p.[Id] = @Id
+    END
+GO
+
+CREATE OR ALTER PROCEDURE [dbo].[Products_GetByIds]
+	@Ids AS [dbo].[BigIntList] READONLY
+AS
+    BEGIN
+        SET NOCOUNT, XACT_ABORT ON;
+        SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+        
+        SELECT TOP (1)
+                p.[Id],
+                p.[Name],
+                p.[Description],
+                p.[Price]
+        FROM [dbo].[Products] AS p
+        INNER JOIN @Ids i ON i.[Value] = p.[Id]
     END
 GO
