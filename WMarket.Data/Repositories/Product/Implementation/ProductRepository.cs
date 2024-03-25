@@ -1,6 +1,5 @@
 ﻿using System.Data;
-using Dapper;
-using WMarket.Data.ConnectionFactories;
+using WMarket.Data.ConnectionDecorators.Sql.Interfaces;
 using WMarket.Data.Repositories.Product.Interfaces;
 using WMarket.Data.Repositories.Product.Models.Request;
 using WMarket.Data.Repositories.Product.Models.Response;
@@ -9,50 +8,43 @@ namespace WMarket.Data.Repositories.Product.Implementation;
 
 public class ProductRepository : IProductRepository
 {
-    private readonly SqlConnectionFactory _connectionFactory;
+    private readonly ISqlConnectionDecorator _connectionDecorator;
 
-    public ProductRepository(SqlConnectionFactory connectionFactory)
+    public ProductRepository(ISqlConnectionDecorator connectionDecorator)
     {
-        _connectionFactory = connectionFactory;
+        _connectionDecorator = connectionDecorator;
     }
     
-    public async Task<long> InsertAsync(InsertProductRepositoryRequest request)
+    public Task<long> InsertAsync(InsertProductRepositoryRequest request)
+        => _connectionDecorator.ExecuteScalarAsync<long>("[dbo].[Products_Insert]", request);
+
+    public Task<IEnumerable<SearchProductsByNameRepositoryResponse>> SearchByNameAsync(SearchProductsByNameRepositoryRequest request)
+        => _connectionDecorator.QueryAsync<SearchProductsByNameRepositoryResponse>("[dbo].[Products_SearchByName]", request);
+
+    public Task<UpdateProductRepositoryResponse> UpdateAsync(UpdateProductRepositoryRequest request)
+        => _connectionDecorator.QueryFirstAsync<UpdateProductRepositoryResponse>("[dbo].[Products_Update]", request);
+
+    public Task<long> DeleteAsync(DeleteProductRepositoryRequest request)
+        => _connectionDecorator.ExecuteScalarAsync<long>("[dbo].[Products_Delete]", request);
+
+    public Task<ProductByIdRepositoryResponse?> GetByIdAsync(ProductByIdRepositoryRequest request)
+        => _connectionDecorator.QueryFirstOrDefaultAsync<ProductByIdRepositoryResponse>("[dbo].[Products_GetById]", request);
+
+    public Task<IEnumerable<ProductByIdsRepositoryResponse>> GetByIdsAsync(ProductByIdsRepositoryRequest request)
     {
-        var connection = await _connectionFactory.OpenAsync();
+        var idsDt = new DataTable();
+        idsDt.Columns.Add("Value", typeof(long));
 
-        var result = await connection.ExecuteScalarAsync<long>("[dbo].[Products_Insert]", request,
-            commandType: CommandType.StoredProcedure);
+        foreach (var id in request.Ids)
+        {
+            var row = idsDt.NewRow();
+            row["Value"] = id;
+            idsDt.Rows.Add(row);
+        }
 
-        return result;
-    }
-
-    public async Task<List<SearchProductsByNameRepositoryResponse>> SearchByNameAsync(SearchProductsByNameRepositoryRequest request)
-    {
-        var connection = await _connectionFactory.OpenAsync();
-
-        var result = await connection.QueryAsync<SearchProductsByNameRepositoryResponse>("[dbo].[Products_SearchByName]", request,
-            commandType: CommandType.StoredProcedure);
-
-        return result.ToList();
-    }
-
-    public async Task<UpdateProductRepositoryResponse?> UpdateAsync(UpdateProductRepositoryRequest request)
-    {
-        var connection = await _connectionFactory.OpenAsync();
-
-        var result = await connection.QueryFirstOrDefaultAsync<UpdateProductRepositoryResponse>("[dbo].[Products_Update]", request,
-            commandType: CommandType.StoredProcedure);
-
-        return result;
-    }
-
-    public async Task<long> DeleteAsync(DeleteProductRepositoryRequest request)
-    {
-        var connection = await _connectionFactory.OpenAsync();
-
-        var result = await connection.ExecuteScalarAsync<long>("[dbo].[Products_Delete]", request,
-            commandType: CommandType.StoredProcedure);
-
-        return result;
+        return _connectionDecorator.QueryAsync<ProductByIdsRepositoryResponse>("[dbo].[Products_GetByIds]", new
+        {
+            Ids = idsDt
+        });
     }
 }

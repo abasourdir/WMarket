@@ -1,11 +1,12 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using WMarket.Common.Models.IOptions;
-using WMarket.Data.ConnectionFactories.Base;
+using WMarket.Data.ConnectionFactories.Sql.Interfaces;
 
-namespace WMarket.Data.ConnectionFactories;
+namespace WMarket.Data.ConnectionFactories.Sql.Implementation;
 
-public class SqlConnectionFactory : IConnectionFactory<SqlConnection>
+public class SqlConnectionFactory : ISqlConnectionFactory
 {
     private readonly ConnectionStrings _connectionStrings;
 
