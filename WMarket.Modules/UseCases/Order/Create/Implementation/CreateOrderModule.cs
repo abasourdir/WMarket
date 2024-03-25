@@ -35,7 +35,7 @@ public class CreateOrderModule : ICreateOrderModule
             Ids = productIds
         })).ToList();
 
-        var insufficientProducts = products.Where(w => !productIds.Contains(w.Id)).Select(s => s.Id).ToList();
+        var insufficientProducts = productIds.Where(w => products.All(a => a.Id != w)).ToList();
 
         if (insufficientProducts.Count != 0)
             throw new BusinessException(ErrorCode.ProductNotFound,
